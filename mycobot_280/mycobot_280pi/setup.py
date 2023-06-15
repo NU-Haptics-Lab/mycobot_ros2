@@ -36,10 +36,12 @@ setup(
             'following_marker = mycobot_280pi.following_marker:main',
             'listen_real_of_topic = mycobot_280pi.listen_real_of_topic:main',
             'listen_real = mycobot_280pi.listen_real:main',
+            'talker_real = mycobot_280pi.talker_real:main',
             'opencv_camera = mycobot_280pi.opencv_camera:main',
             'simple_gui = mycobot_280pi.simple_gui:main',
             'slider_control = mycobot_280pi.slider_control:main',
             'teleop_keyboard = mycobot_280pi.teleop_keyboard:main',
+            'sync_plan = mycobot_280pi.sync_plan:main',
         ],
     },
 )
