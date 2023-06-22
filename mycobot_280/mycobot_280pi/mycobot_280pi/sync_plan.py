@@ -11,11 +11,11 @@ class Sync_plan(Node):
         super().__init__("sync_plan")
         self.declare_parameter('port', '/dev/ttyAMA0')
         self.declare_parameter('baud', 1000000)
-        self.declare_parameter('speed', 80.0)
+        self.declare_parameter('speed', 80)
    
         port = self.get_parameter("port").get_parameter_value().string_value
         baud = self.get_parameter("baud").get_parameter_value().integer_value
-        self.speed = self.get_parameter("speed").get_parameter_value().double_value
+        self.speed = self.get_parameter("speed").get_parameter_value().integer_value
         self.mc = MyCobot(port,str(baud))
 
         self.get_logger().info("port:%s, baud:%d" % (port, baud))
@@ -28,15 +28,16 @@ class Sync_plan(Node):
 
         self.subscription = self.create_subscription(
             JointState,
-            "cmd/joint_states",
+            "cmd/joint_commands",
             self.listener_callback,
             10
         )
 
-    def listener_callback(self, data):
+    def listener_callback(self, msg):
         # rclpy.loginfo(rclpy.get_caller_id() + "%s", data)
+
         data_list = []
-        for index, value in enumerate(data.position):
+        for index, value in enumerate(msg.position):
             data_list.append(value)
 
         self.mc.send_radians(data_list, self.speed)
