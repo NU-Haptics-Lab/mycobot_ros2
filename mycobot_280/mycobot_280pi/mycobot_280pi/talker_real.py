@@ -80,7 +80,8 @@ class Talker(Node):
                 pub.publish(joint_state_send)
                 rate.sleep()
             except Exception as e:
-                print(e)
+                pass
+                # print(e)
             
             
 
